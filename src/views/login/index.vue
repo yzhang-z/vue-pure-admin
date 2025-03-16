@@ -68,7 +68,10 @@ const onLogin = async (formEl: FormInstance | undefined) => {
     if (valid) {
       loading.value = true;
       useUserStoreHook()
-        .loginByUsername({ username: ruleForm.username, password: "admin123" })
+        .loginByUsername({
+          username: ruleForm.username,
+          password: ruleForm.password
+        })
         .then(res => {
           if (res.success) {
             // 获取后端路由
@@ -96,7 +99,7 @@ const immediateDebounce: any = debounce(
   true
 );
 
-useEventListener(document, "keypress", ({ code }) => {
+useEventListener(document, "keydown", ({ code }) => {
   if (
     ["Enter", "NumpadEnter"].includes(code) &&
     !disabled.value &&
